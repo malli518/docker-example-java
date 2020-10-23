@@ -19,18 +19,23 @@
 	docker rm -f --name spring-mvc-war 
 
 
-
-## Run using docker-compose
+## Run using docker-compose without scaling
 	docker-compose up -d --build
 	
 
 ## Accessing your app
-	Docker: http://localhost:8001/spring-mvc-example-war-1.0.0/#
+	http://localhost:8001/spring-mvc-example-war-1.0.0/#
 	
 	
-## Scale up the containers
-    docker-compose -f docker-compose-with-scaling.yml up -d
-	docker-compose -f docker-compose-with-scaling.yml scale api=3
-	
-## Accessing your app with load balancer (HAProxy)
-	Docker: http://localhost:8002/spring-mvc-example-war-1.0.0/#
+## Start with minimun 2 app containers:
+	docker-compose -f docker-compose-with-scaling.yml up --build --scale app=2
+
+## Scale up to 10 app containers:
+	docker-compose -f docker-compose-with-scaling.yml --scale app=10
+
+## Scale down to 10 app containers:
+	docker-compose -f docker-compose-with-scaling.yml --scale app=10
+
+## Accessing your app with scale option
+	http://localhost:8002/greet?name=zama_testing
+
